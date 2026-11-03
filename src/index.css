@@ -1,0 +1,27 @@
+:root {
+  --renk-ana: #0f766e;
+  --renk-koyu: #115e59;
+  --renk-acik: #ccfbf1;
+  --renk-vurgu: #f97316;
+  --renk-mor: #5b3bd4;
+  --renk-hata: #c62f2f;
+  --renk-zemin: #f3f8f8;
+  --renk-yazi: #10262a;
+  --renk-soluk: #55696d;
+  --renk-cizgi: #d6e2e3;
+  --bosluk-s: 8px;
+  --bosluk-m: 16px;
+  --bosluk-l: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--renk-zemin);
+  color: var(--renk-yazi);
+  font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  line-height: 1.6;
+}
