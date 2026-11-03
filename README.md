@@ -2,7 +2,7 @@
 
 Utku Erdoğan · 2311012074
 
-**Canlı adres (Vercel):** https://BURAYA-VERCEL-ADRESI.vercel.app  <!-- deploy sonrası güncelle -->
+   **Canlı adres (Vercel):** https://utkuerdogan-frontend.vercel.app <!-- deploy sonrası güncelle -->
 
 ## Kurulum
 
