@@ -40,7 +40,22 @@
           ]
         }
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Listedeki ilk etkinliğin _id'sini 3. istek için sakla",
+              "const list = pm.response.json();",
+              "if (Array.isArray(list) && list.length > 0) {",
+              "  pm.collectionVariables.set(\"eventId\", list[0]._id);",
+              "}"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "3 Tek etkinlik",
@@ -48,7 +63,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/events/event-2",
+          "raw": "http://localhost:3000/events/{{eventId}}",
           "protocol": "http",
           "host": [
             "localhost"
@@ -56,7 +71,7 @@
           "port": "3000",
           "path": [
             "events",
-            "event-2"
+            "{{eventId}}"
           ]
         }
       },
@@ -77,6 +92,26 @@
           "path": [
             "events",
             "yok"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "4b Olmayan _id (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/events/507f1f77bcf86cd799439011",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "events",
+            "507f1f77bcf86cd799439011"
           ]
         }
       },
@@ -147,6 +182,12 @@
         }
       },
       "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "eventId",
+      "value": ""
     }
   ]
 }
