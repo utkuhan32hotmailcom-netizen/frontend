@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Event } from "../models/event-model.js";
+import { todayStart } from "../utils/date.js";
 
 // Bu alanları istemci değiştiremez; MongoDB ya da Mongoose yönetir.
 const KORUNAN_ALANLAR = ["_id", "createdAt", "updatedAt", "__v"];
@@ -28,6 +29,17 @@ export async function getEvents(req, res, next) {
       filter.title = { $regex: guvenli, $options: "i" }; // büyük/küçük harf fark etmez
     }
     const events = await Event.find(filter).sort({ date: 1 });
+    res.json(events);
+  } catch (err) {
+    next(err);
+  }
+}
+
+// GET /events/upcoming — bugün ve sonrası, en yakın önce.
+// date veritabanında Date olduğu için $gte ve sort tarihi tarih olarak karşılaştırır.
+export async function getUpcomingEvents(req, res, next) {
+  try {
+    const events = await Event.find({ date: { $gte: todayStart() } }).sort({ date: 1, time: 1 });
     res.json(events);
   } catch (err) {
     next(err);
