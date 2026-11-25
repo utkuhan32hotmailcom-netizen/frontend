@@ -1,7 +1,7 @@
 {
   "name": "kampus-backend",
   "version": "1.0.0",
-  "description": "Kampüs Etkinlikleri REST API (Sprint 8 · MongoDB)",
+  "description": "Kampüs Etkinlikleri REST API (Sprint 9 · tam CRUD)",
   "type": "module",
   "private": true,
   "scripts": {
