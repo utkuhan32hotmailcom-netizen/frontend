@@ -15,10 +15,18 @@ function isClientError(err) {
   return err.name === "ValidationError" || err.name === "CastError";
 }
 
-// GET /events  (?category=Atölye ile süzülebilir)
+// GET /events  (?category=Atölye ve/veya ?search=atölye ile süzülür)
 export async function getEvents(req, res, next) {
   try {
-    const filter = req.query.category ? { category: req.query.category } : {};
+    const { category, search } = req.query;
+    const filter = {};
+    // typeof kontrolü: ?category=a&category=b dizi gelir; o durumda yok sayılır.
+    if (typeof category === "string" && category) filter.category = category;
+    if (typeof search === "string" && search) {
+      // ( * ? gibi işaretler regex'i bozmasın: önlerine \ koyup harf olarak aranır.
+      const guvenli = search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      filter.title = { $regex: guvenli, $options: "i" }; // büyük/küçük harf fark etmez
+    }
     const events = await Event.find(filter).sort({ date: 1 });
     res.json(events);
   } catch (err) {
