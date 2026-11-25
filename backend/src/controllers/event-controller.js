@@ -86,3 +86,15 @@ export async function updateEvent(req, res, next) {
     next(err);
   }
 }
+
+// DELETE /events/:id — silindi: 204, gövde yok.
+export async function deleteEvent(req, res, next) {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) return notFound(res);
+    const event = await Event.findByIdAndDelete(req.params.id);
+    if (!event) return notFound(res); // aynı id'yi ikinci kez silmek de buraya düşer
+    res.status(204).end(); // 204 yanıtının gövdesi olmaz; res.json yazılmaz
+  } catch (err) {
+    next(err);
+  }
+}
